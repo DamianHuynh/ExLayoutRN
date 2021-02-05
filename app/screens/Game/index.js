@@ -16,7 +16,7 @@ import gameData from '../../data/gameData';
 const SEPARATOR_HEIGHT = 10;
 
 export default function GameScreen() {
-  const GameItem = ({game}) => {
+  const GameItem = ({game, navigation}) => {
     return (
       <TouchableOpacity activeOpacity={0.7} style={styles.gameItem}>
         <Image
