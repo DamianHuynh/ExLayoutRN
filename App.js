@@ -1,6 +1,6 @@
 import React from 'react';
-import {GameScreen} from './app/screens';
+import RootStack from './app/navigation';
 
 export default function App() {
-  return <GameScreen />;
+  return <RootStack />;
 }

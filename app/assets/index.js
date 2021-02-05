@@ -3,7 +3,7 @@ const Alto_0 = require('./images/Game/Alto_0.png');
 const Alto_1 = require('./images/Game/Alto_1.png');
 const Alto_2 = require('./images/Game/Alto_2.png');
 
-// const Among_0 = require('./images/Game/Among_0.png');
+const Among_icon = require('./images/Game/Among_icon.png');
 const Among_0 = require('./images/Game/Among_0.png');
 const Among_1 = require('./images/Game/Among_1.png');
 const Among_2 = require('./images/Game/Among_2.png');
@@ -34,6 +34,7 @@ export {
   Alto_0,
   Alto_1,
   Alto_2,
+  Among_icon,
   Among_0,
   Among_1,
   Among_2,

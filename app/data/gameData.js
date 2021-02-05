@@ -3,6 +3,7 @@ import {
   Alto_0,
   Alto_1,
   Alto_2,
+  Among_icon,
   Among_0,
   Among_1,
   Among_2,
@@ -64,14 +65,14 @@ const gameData = [
   {
     id: 4,
     title: 'Among Us',
-    icon: Alto_icon,
+    icon: Among_icon,
     subTitle: 'Beware of the importer',
     description:
       'Cleverly mixing mystery an puzzle solving, the Pillar takes you deep into an faraway unknown world where you must pay attention to your surroundings in order to find the way to freedom. Exploration goes hand in hand with an open and clear mind as you try to break free from a mythical birdcage and escape.\nEnjoy every level to the maximum, the labyrinth around you changes as you open each door leading to another the room, another flow puzzle, another mystery and challenge.',
     age: '9+',
     rating: 4.7,
     preview: [Among_0, Among_1, Among_2, Among_3, Among_4],
-    backgroundColor: '#BBBBBBCC',
+    backgroundColor: '#ffde29CC',
   },
 ];
 

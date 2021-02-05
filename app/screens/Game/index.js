@@ -7,19 +7,22 @@ import {
   StatusBar,
   Image,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 import {avatar, fontQuickSand} from '../../assets';
 
 import gameData from '../../data/gameData';
 
+const SEPARATOR_HEIGHT = 10;
+
 export default function GameScreen() {
   const GameItem = ({game}) => {
     return (
-      <View style={styles.gameItem}>
+      <TouchableOpacity activeOpacity={0.7} style={styles.gameItem}>
         <Image
           source={game.preview[0]}
           style={styles.gameBanner}
-          resizeMode="stretch"
+          resizeMode="contain"
         />
         <View
           style={[{backgroundColor: game.backgroundColor}, styles.gameInfo]}>
@@ -31,7 +34,7 @@ export default function GameScreen() {
             <Text style={[styles.text, styles.small]}>{game.subTitle}</Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (
@@ -49,10 +52,12 @@ export default function GameScreen() {
       <FlatList
         data={gameData}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 60}}
         keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={{paddingBottom: SEPARATOR_HEIGHT}}
+        ItemSeparatorComponent={() => (
+          <View style={{height: SEPARATOR_HEIGHT}} />
+        )}
         renderItem={({item}) => <GameItem game={item} />}
-        ItemSeparatorComponent={() => <View style={{height: 60}} />}
       />
     </SafeAreaView>
   );
@@ -95,6 +100,7 @@ const styles = StyleSheet.create({
   gameItem: {
     flex: 1,
     alignItems: 'center',
+    // backgroundColor: 'red',
   },
   gameBanner: {
     height: 300,
@@ -102,9 +108,8 @@ const styles = StyleSheet.create({
   },
   gameInfo: {
     ...StyleSheet.absoluteFillObject,
-    top: '80%',
+    top: '65%',
     left: '5%',
-
     width: '90%',
     padding: 10,
     height: 100,
