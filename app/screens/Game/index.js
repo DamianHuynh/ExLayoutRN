@@ -1,129 +1,70 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  StatusBar,
-  Image,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
-import {avatar, fontQuickSand} from '../../assets';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Home from './Home';
+import Detail from './Detail';
+import Live from './Live';
+import Profile from './Profile';
+import {View} from 'react-native';
+const Stack = createStackNavigator();
 
-import gameData from '../../data/gameData';
+const Tab = createBottomTabNavigator();
 
-const SEPARATOR_HEIGHT = 10;
-
-export default function GameScreen() {
-  const GameItem = ({game, navigation}) => {
-    return (
-      <TouchableOpacity activeOpacity={0.7} style={styles.gameItem}>
-        <Image
-          source={game.preview[0]}
-          style={styles.gameBanner}
-          resizeMode="contain"
-        />
-        <View
-          style={[{backgroundColor: game.backgroundColor}, styles.gameInfo]}>
-          <Image source={game.icon} style={styles.gameIcon} />
-          <View style={styles.gameInfoContent}>
-            <Text style={[styles.text, styles.medium, styles.bold]}>
-              {game.title}
-            </Text>
-            <Text style={[styles.text, styles.small]}>{game.subTitle}</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
+const RootTab = () => {
+  const tabBarOptions = {
+    showLabel: false,
+    style: {
+      backgroundColor: '#343434',
+      borderTopColor: '#343434',
+    },
+  };
+  const tabBarIconContent = {
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    borderRadius: 32,
   };
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <View style={styles.header}>
-        <Text style={[styles.text, styles.large]}>
-          Hello <Text style={styles.bold}>CyberSoft,</Text>
-          {'\n'}
-          <Text style={[styles.bold, styles.small]}>Best games for today</Text>
-        </Text>
-        <Image source={avatar} style={styles.avatar} />
-      </View>
+    <Tab.Navigator
+      tabBarOptions={tabBarOptions}
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color}) => {
+          let iconName;
+          const backgroundColor = focused ? '#819ee5' : '#343434';
+          const size = focused ? 25 : 20;
+          switch (route.name) {
+            case 'HomeGame':
+              iconName = 'home';
+              break;
+            case 'LiveGame':
+              iconName = 'game-controller';
+              break;
+            case 'ProfileGame':
+              iconName = 'user';
+              break;
 
-      <FlatList
-        data={gameData}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={{paddingBottom: SEPARATOR_HEIGHT}}
-        ItemSeparatorComponent={() => (
-          <View style={{height: SEPARATOR_HEIGHT}} />
-        )}
-        renderItem={({item}) => <GameItem game={item} />}
-      />
-    </SafeAreaView>
+            default:
+              break;
+          }
+          return (
+            <View style={[{backgroundColor}, tabBarIconContent]}>
+              <Entypo name={iconName} size={size} color="#fff" />
+            </View>
+          );
+        },
+      })}>
+      <Tab.Screen name="HomeGame" component={Home} />
+      <Tab.Screen name="LiveGame" component={Live} />
+      <Tab.Screen name="ProfileGame" component={Profile} />
+    </Tab.Navigator>
+  );
+};
+
+export default function GameScreen() {
+  return (
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="RootGame" component={RootTab} />
+      <Stack.Screen name="DetailGame" component={Detail} />
+    </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#343434',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 40,
-    marginHorizontal: 20,
-  },
-  avatar: {
-    height: 50,
-    width: 50,
-    borderRadius: 35,
-  },
-  text: {
-    color: '#ffffff',
-    fontFamily: fontQuickSand,
-  },
-  large: {
-    fontSize: 30,
-  },
-  medium: {
-    fontSize: 20,
-  },
-  small: {
-    fontSize: 14,
-  },
-  bold: {
-    fontWeight: '700',
-  },
-  gameItem: {
-    flex: 1,
-    alignItems: 'center',
-    // backgroundColor: 'red',
-  },
-  gameBanner: {
-    height: 300,
-    width: '100%',
-  },
-  gameInfo: {
-    ...StyleSheet.absoluteFillObject,
-    top: '65%',
-    left: '5%',
-    width: '90%',
-    padding: 10,
-    height: 100,
-    borderRadius: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  gameIcon: {
-    width: 50,
-    height: 50,
-    borderRadius: 8,
-  },
-  gameInfoContent: {
-    flexBasis: '80%',
-  },
-});
