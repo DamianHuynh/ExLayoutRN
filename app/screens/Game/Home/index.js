@@ -12,7 +12,7 @@ import {
 import {avatar, fontQuickSand} from '../../../assets';
 import gameData from '../../../data/gameData';
 
-const SEPARATOR_HEIGHT = 10;
+const SEPARATOR_HEIGHT = 35;
 
 export default function Home({navigation}) {
   const GameItem = ({game}) => {
@@ -20,7 +20,7 @@ export default function Home({navigation}) {
       <TouchableOpacity
         activeOpacity={0.7}
         style={styles.gameItem}
-        onPress={() => navigation.navigate('DetailGame')}>
+        onPress={() => navigation.navigate('DetailGame', {game})}>
         <Image
           source={game.preview[0]}
           style={styles.gameBanner}
@@ -102,15 +102,14 @@ const styles = StyleSheet.create({
   gameItem: {
     flex: 1,
     alignItems: 'center',
-    // backgroundColor: 'red',
   },
   gameBanner: {
-    height: 300,
-    width: '100%',
+    height: 250,
+    aspectRatio: 16 / 9,
   },
   gameInfo: {
-    ...StyleSheet.absoluteFillObject,
-    top: '65%',
+    position: 'absolute',
+    bottom: -10,
     left: '5%',
     width: '90%',
     padding: 10,

@@ -62,7 +62,7 @@ const RootTab = () => {
 
 export default function GameScreen() {
   return (
-    <Stack.Navigator headerMode="none">
+    <Stack.Navigator mode="modal" headerMode="none">
       <Stack.Screen name="RootGame" component={RootTab} />
       <Stack.Screen name="DetailGame" component={Detail} />
     </Stack.Navigator>
